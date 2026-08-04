@@ -1,0 +1,84 @@
+{
+  "$schema": "/home/ubuntu/.cursor/plugins/cache/cursor-public/9333/fa16d695b35ccf4ea179d976e5aaee0834a25b0b/skills/orchestrate/schemas/plan.schema.json",
+  "goal": "Deploy tahiti-meetup screen to Cloudflare Pages/Workers Assets on account dfde833d0b10b91136eb621f0b71c687 so a public HTTPS URL prompts for camera+mic and runs the live dithered greeting. Use CLOUDFLARE_API_TOKEN. Update Drive folder https://drive.google.com/drive/folders/12ZLC8K2zYcn36tMVUgm1hNuJ7rDkVo7V with the live URL. Work from branch cursor/tahiti-meetup-doorkeeper-bb91 and open/update a PR.",
+  "summary": "deploy Tahiti Meetup doorkeeper screen to Cloudflare and publish the live URL",
+  "dispatcher": {
+    "firstName": "Tom"
+  },
+  "rootSlug": "tahiti-doorkeeper",
+  "baseBranch": "cursor/tahiti-meetup-doorkeeper-bb91",
+  "prBase": "cursor/tahiti-meetup-doorkeeper-bb91",
+  "repoUrl": "https://github.com/cursorcommunityled/doorkeeper",
+  "selfAgentId": "bc-61499c1b-fdd7-4d1e-8a78-dde1599b864d",
+  "acceptanceCriteria": [
+    "Public HTTPS URL serves tahiti-meetup screen",
+    "Camera permission prompt appears on click",
+    "Dithered live feed renders after granting camera",
+    "Google Drive folder updated with live URL",
+    "Draft PR open on cursor/tahiti-meetup-doorkeeper-bb91"
+  ],
+  "tasks": [
+    {
+      "name": "deploy-cloudflare",
+      "type": "worker",
+      "model": "composer-2-fast",
+      "scopedGoal": "Deploy the tahiti-meetup static screen to Cloudflare Workers Assets. Read `.orchestrate/tahiti-doorkeeper/bootstrap/deploy-brief.md` for the full spec. Add wrangler.jsonc at repo root pointing assets at ./tahiti-meetup, install wrangler, deploy to account dfde833d0b10b91136eb621f0b71c687 using CLOUDFLARE_API_TOKEN. Commit wrangler.jsonc and package.json devDependency changes. Return the live HTTPS workers.dev URL in your handoff.",
+      "pathsAllowed": [
+        "wrangler.jsonc",
+        "package.json",
+        "package-lock.json",
+        "tahiti-meetup/**",
+        ".orchestrate/**"
+      ],
+      "acceptance": [
+        "wrangler deploy succeeds against account dfde833d0b10b91136eb621f0b71c687",
+        "Live HTTPS URL returned in handoff",
+        "Static assets include index.html, script.js, styles.css, assets/"
+      ],
+      "verify": "## Setup\n- `npm install` then confirm wrangler.jsonc exists\n\n## Automated\n- `curl -sI <deployed-url>` returns HTTP 200\n- `curl -s <deployed-url>` contains `tahiti-meetup` branding (CURSOR, Tahiti Meetup)\n\n## Manual\n- Open URL in browser; click page; camera permission prompt appears\n- After granting camera: dithered canvas animates\n\n## Gotchas\n- Must be HTTPS for getUserMedia\n- Demo fallback: `<url>?demo` loads demo video without camera"
+    },
+    {
+      "name": "verify-live",
+      "type": "verifier",
+      "model": "composer-2",
+      "verifies": "deploy-cloudflare",
+      "scopedGoal": "Verify the deployed tahiti-meetup URL meets acceptance criteria. Read the deploy-cloudflare handoff for the live URL. Test HTTPS load, page content, and demo mode (?demo). Attempt browser verification of camera prompt UX. Report pass/fail with evidence.",
+      "acceptance": [
+        "HTTPS URL returns 200 with expected HTML",
+        "Demo mode (?demo) loads and renders dithered video",
+        "Verdict: pass or fail with specific gaps"
+      ]
+    },
+    {
+      "name": "update-drive",
+      "type": "worker",
+      "model": "composer-2-fast",
+      "dependsOn": ["deploy-cloudflare", "verify-live"],
+      "scopedGoal": "Update Google Drive folder https://drive.google.com/drive/folders/12ZLC8K2zYcn36tMVUgm1hNuJ7rDkVo7V with the live deployed URL from the deploy-cloudflare handoff. Create or update a file (e.g. LIVE-URL.txt) in that folder containing the HTTPS URL and deployment timestamp. Use Google Drive MCP tools.",
+      "pathsAllowed": [".orchestrate/**"],
+      "acceptance": [
+        "Drive folder contains a file with the live HTTPS URL",
+        "Handoff includes Drive file link or ID"
+      ]
+    },
+    {
+      "name": "finalize-pr",
+      "type": "worker",
+      "model": "composer-2-fast",
+      "dependsOn": ["deploy-cloudflare", "update-drive"],
+      "openPR": true,
+      "scopedGoal": "Open or update a draft PR on branch cursor/tahiti-meetup-doorkeeper-bb91. Include wrangler deploy config, live URL, and Drive link from upstream handoffs in the PR description. Base: cursor/tahiti-meetup-doorkeeper-bb91. Merge any deployment commits from deploy-cloudflare branch if needed.",
+      "pathsAllowed": [
+        "wrangler.jsonc",
+        "package.json",
+        "package-lock.json",
+        ".orchestrate/**",
+        "README.md"
+      ],
+      "acceptance": [
+        "Draft PR exists targeting cursor/tahiti-meetup-doorkeeper-bb91",
+        "PR description includes live URL and Drive folder link"
+      ]
+    }
+  ]
+}

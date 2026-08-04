@@ -1,0 +1,99 @@
+{
+  "rootSlug": "tahiti-doorkeeper",
+  "tasks": [
+    {
+      "name": "deploy-cloudflare",
+      "type": "worker",
+      "branch": "orch/tahiti-doorkeeper/deploy-cloudflare",
+      "startingRef": "cursor/tahiti-meetup-doorkeeper-bb91",
+      "dependsOn": [],
+      "agentId": null,
+      "runId": null,
+      "parentAgentId": null,
+      "status": "running",
+      "resultStatus": null,
+      "handoffPath": null,
+      "startedAt": "2026-08-04T05:15:50.498Z",
+      "finishedAt": null,
+      "lastUpdate": "2026-08-04T05:15:50.498Z",
+      "note": null,
+      "slackTs": null,
+      "prNumber": null,
+      "failureMode": null,
+      "verification": null,
+      "attempts": 1
+    },
+    {
+      "name": "verify-live",
+      "type": "verifier",
+      "branch": "orch/tahiti-doorkeeper/verify-live",
+      "startingRef": "orch/tahiti-doorkeeper/deploy-cloudflare",
+      "dependsOn": [
+        "deploy-cloudflare"
+      ],
+      "agentId": null,
+      "runId": null,
+      "parentAgentId": null,
+      "status": "pending",
+      "resultStatus": null,
+      "handoffPath": null,
+      "startedAt": null,
+      "finishedAt": null,
+      "lastUpdate": null,
+      "note": null,
+      "slackTs": null,
+      "prNumber": null,
+      "failureMode": null,
+      "verification": null
+    },
+    {
+      "name": "update-drive",
+      "type": "worker",
+      "branch": "orch/tahiti-doorkeeper/update-drive",
+      "startingRef": "cursor/tahiti-meetup-doorkeeper-bb91",
+      "dependsOn": [
+        "deploy-cloudflare",
+        "verify-live"
+      ],
+      "agentId": null,
+      "runId": null,
+      "parentAgentId": null,
+      "status": "pending",
+      "resultStatus": null,
+      "handoffPath": null,
+      "startedAt": null,
+      "finishedAt": null,
+      "lastUpdate": null,
+      "note": null,
+      "slackTs": null,
+      "prNumber": null,
+      "failureMode": null,
+      "verification": null
+    },
+    {
+      "name": "finalize-pr",
+      "type": "worker",
+      "branch": "orch/tahiti-doorkeeper/finalize-pr",
+      "startingRef": "cursor/tahiti-meetup-doorkeeper-bb91",
+      "dependsOn": [
+        "deploy-cloudflare",
+        "update-drive"
+      ],
+      "agentId": null,
+      "runId": null,
+      "parentAgentId": null,
+      "status": "pending",
+      "resultStatus": null,
+      "handoffPath": null,
+      "startedAt": null,
+      "finishedAt": null,
+      "lastUpdate": null,
+      "note": null,
+      "slackTs": null,
+      "prNumber": null,
+      "failureMode": null,
+      "verification": null
+    }
+  ],
+  "attention": []
+}

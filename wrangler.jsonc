@@ -1,0 +1,11 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "tahiti-meetup-doorkeeper",
+  "account_id": "dfde833d0b10b91136eb621f0b71c687",
+  "compatibility_date": "2026-02-01",
+  "assets": {
+    "directory": "./tahiti-meetup",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}

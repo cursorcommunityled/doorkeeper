@@ -64,12 +64,12 @@
       "handoffPath": "handoffs/update-drive.md",
       "startedAt": "2026-08-04T05:19:26.630Z",
       "finishedAt": "2026-08-04T05:20:15.680Z",
-      "lastUpdate": "2026-08-04T05:20:15.681Z",
+      "lastUpdate": "2026-08-04T05:20:17.323Z",
       "note": null,
       "slackTs": null,
       "prNumber": null,
       "failureMode": null,
-      "verification": null,
+      "verification": "unit-test-verified",
       "attempts": 1
     },
     {
@@ -84,17 +84,18 @@
       "agentId": null,
       "runId": null,
       "parentAgentId": null,
-      "status": "pending",
+      "status": "running",
       "resultStatus": null,
       "handoffPath": null,
-      "startedAt": null,
+      "startedAt": "2026-08-04T05:20:20.054Z",
       "finishedAt": null,
-      "lastUpdate": null,
+      "lastUpdate": "2026-08-04T05:20:20.054Z",
       "note": null,
       "slackTs": null,
       "prNumber": null,
       "failureMode": null,
-      "verification": null
+      "verification": null,
+      "attempts": 1
     }
   ],
   "attention": [
@@ -105,6 +106,10 @@
     {
       "at": "2026-08-04T05:17:33.462Z",
       "message": "verify-live: model \"composer-2\" not in MODEL_CATALOG (spawning anyway). Run `bun cli.ts models` to see known slugs."
+    },
+    {
+      "at": "2026-08-04T05:20:17.324Z",
+      "message": "update-drive: verification self-reported (unit-test-verified)"
     }
   ]
 }

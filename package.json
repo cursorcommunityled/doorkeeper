@@ -1,0 +1,12 @@
+{
+  "name": "cursor-event-greetings",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Collection of TV-ready greeting screens for Cursor community events",
+  "scripts": {
+    "screen": "node scripts/screen.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

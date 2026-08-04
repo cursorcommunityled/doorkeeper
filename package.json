@@ -4,7 +4,8 @@
   "private": true,
   "description": "Collection of TV-ready greeting screens for Cursor community events",
   "scripts": {
-    "screen": "node scripts/screen.js"
+    "screen": "node scripts/screen.js",
+    "deploy:tahiti-meetup": "wrangler deploy"
   },
   "engines": {
     "node": ">=18"

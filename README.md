@@ -47,6 +47,18 @@ PORT=3000 npm run screen -- dithered-camera
 4. List it in the **Screens** table above.
 5. Run it with `npm run screen -- my-screen`.
 
+## Deploy tahiti-meetup (Cloudflare Workers Assets)
+
+Requires `CLOUDFLARE_API_TOKEN` with Workers deploy permissions.
+
+```bash
+npm install
+npm run deploy:tahiti-meetup
+```
+
+Live site: https://tahiti-meetup-doorkeeper.pf-container-routes.workers.dev  
+Demo mode (no camera): https://tahiti-meetup-doorkeeper.pf-container-routes.workers.dev/?demo
+
 ## Notes
 
 - Designed for fullscreen display on a TV or projector.

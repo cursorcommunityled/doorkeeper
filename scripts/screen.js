@@ -25,6 +25,9 @@ const MIME = {
   ".ttf": "font/ttf",
   ".ico": "image/x-icon",
   ".map": "application/json",
+  ".mp4": "video/mp4",
+  ".webm": "video/webm",
+  ".txt": "text/plain; charset=utf-8",
 };
 
 function listScreens() {

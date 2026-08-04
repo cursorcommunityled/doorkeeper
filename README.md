@@ -9,6 +9,7 @@ Each screen lives in its own folder as plain HTML, CSS, and JavaScript — no bu
 | Folder | Description |
 | --- | --- |
 | [`dithered-camera/`](./dithered-camera) | Black-and-white dithered camera feed with Cursor branding, motion trails, and a short glitch burst when someone says “Cursor” |
+| [`tahiti-meetup/`](./tahiti-meetup) | Tahiti Meetup greeting screen (CursorDisplay wordmark + demo video mode via `?demo`) |
 
 ## Setup
 

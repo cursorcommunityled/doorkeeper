@@ -9,7 +9,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 const OUT_DIR = process.env.OUT_DIR || "/opt/cursor/artifacts";
 const PORT = Number(process.env.PORT) || 8765;
-const URL = process.env.DEMO_URL || `http://127.0.0.1:${PORT}/?demo=demo/person.mp4`;
+const URL = process.env.DEMO_URL || `http://127.0.0.1:${PORT}/?demo=demo/person.webm`;
 const DURATION_MS = Number(process.env.DURATION_MS) || 8000;
 
 fs.mkdirSync(OUT_DIR, { recursive: true });

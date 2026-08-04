@@ -1,3 +1,4 @@
 Demo input video (single-person desk / camera view):
 Mixkit stock clip #10441
-https://assets.mixkit.co/videos/10441/10441-720.mp4
+Source: https://assets.mixkit.co/videos/10441/10441-720.mp4
+Re-encoded to VP8 WebM for Chromium-friendly local demo playback.

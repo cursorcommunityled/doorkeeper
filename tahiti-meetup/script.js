@@ -10,7 +10,7 @@ const GLITCH_COOLDOWN_MS = 1100;
 
 const demoParam = new URLSearchParams(window.location.search).get("demo");
 const DEMO_VIDEO =
-  demoParam === null ? null : demoParam || "demo/person.mp4";
+  demoParam === null ? null : demoParam || "demo/person.webm";
 
 const BAYER_8 = [
   [0, 32, 8, 40, 2, 34, 10, 42],

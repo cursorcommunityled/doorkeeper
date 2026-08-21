@@ -3,7 +3,7 @@
 const fs = require("fs");
 const http = require("http");
 const path = require("path");
-const { exec } = require("child_process");
+const { execFile } = require("child_process");
 
 const ROOT = path.resolve(__dirname, "..");
 const PORT = Number(process.env.PORT) || 8765;
@@ -76,15 +76,28 @@ function send(res, status, body, headers = {}) {
 }
 
 function openBrowser(url) {
-  const platform = process.platform;
-  const command =
-    platform === "darwin"
-      ? `open "${url}"`
-      : platform === "win32"
-        ? `start "" "${url}"`
-        : `xdg-open "${url}"`;
+  try {
+    const parsed = new URL(url);
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+      return;
+    }
+    if (parsed.hostname !== "localhost" && parsed.hostname !== "127.0.0.1") {
+      return;
+    }
+  } catch {
+    return;
+  }
 
-  exec(command, () => {});
+  const platform = process.platform;
+  if (platform === "darwin") {
+    execFile("/usr/bin/open", [url], () => {});
+    return;
+  }
+  if (platform === "win32") {
+    execFile("C:\\Windows\\System32\\cmd.exe", ["/c", "start", "", url], () => {});
+    return;
+  }
+  execFile("/usr/bin/xdg-open", [url], () => {});
 }
 
 function createServer(screenDir) {
@@ -96,9 +109,10 @@ function createServer(screenDir) {
       pathname = "/index.html";
     }
 
-    const filePath = path.normalize(path.join(screenDir, pathname));
+    const filePath = path.resolve(path.normalize(path.join(screenDir, pathname)));
+    const root = screenDir.endsWith(path.sep) ? screenDir : screenDir + path.sep;
 
-    if (!filePath.startsWith(screenDir)) {
+    if (filePath !== screenDir && !filePath.startsWith(root)) {
       send(res, 403, "Forbidden");
       return;
     }
